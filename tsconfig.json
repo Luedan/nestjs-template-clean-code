@@ -32,17 +32,16 @@
       ],
       "@/*": [
         "src/*"
-      ],
+      ]
     }
   },
   "include": [
     "./src/**/*",
+    "./test/**/*",
+    "./jest.config.js"
   ],
   "exclude": [
     "node_modules",
-    "dist",
-    "test",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "dist"
   ]
 }

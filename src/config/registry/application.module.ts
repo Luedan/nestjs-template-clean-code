@@ -1,23 +1,20 @@
-import { ApplicationProviders } from '@application/useCases';
+import { ApplicationLayerDependencies } from '@application/useCases';
 import { Module } from '@nestjs/common';
-import { InfrastructureDependencyInjection } from './infrastructure.module';
-import { AutomapperModule } from '@automapper/nestjs';
-import { classes } from '@automapper/classes';
 import { MapperProfiles } from '@application/mapper';
 import { PackageDependencies } from '@/package/index ';
+import { MapperInjection } from '@application/mapper/mapper';
 
+/**
+ * Module for dependency injection in the application layer.
+ * DON'T MODIFY THIS FILE IF IT'S NOT NECESSARY
+ */
 @Module({
-  imports: [
-    AutomapperModule.forRoot({
-      strategyInitializer: classes(),
-    }),
-    InfrastructureDependencyInjection,
-  ],
+  imports: [MapperInjection],
   providers: [
-    ...ApplicationProviders,
+    ...ApplicationLayerDependencies,
     ...MapperProfiles,
     ...PackageDependencies,
   ],
-  exports: [...ApplicationProviders, ...PackageDependencies],
+  exports: [...ApplicationLayerDependencies, ...PackageDependencies],
 })
 export class ApplicationDependencyInjection {}

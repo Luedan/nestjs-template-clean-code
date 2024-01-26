@@ -18,6 +18,8 @@ export class GreetingController {
   /**
    * @constructor
    * @param _getHello
+   * @param _getHelloFor
+   * @param _createGreeting
    */
   constructor(
     @Inject('GetHelloInterface')

@@ -28,10 +28,12 @@ export class GetHello implements GetHelloInterface {
   async handle(): Promise<GreetingResponseDto> {
     try {
       const data = { greeting: 'Hello World!' };
-
+      // test con mapper normal
       const response = this._mapper.map(data, Greeting, GreetingResponseDto);
 
       return response;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
