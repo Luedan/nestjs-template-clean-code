@@ -1,17 +1,17 @@
-import { AppModule } from '@/config/registry/app.module';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppInjection } from '@/config/DependencyInjection/app.module';
 
 /**
  * Initializes the application and starts the server.
  * @returns {Promise<void>}
  */
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppInjection);
 
   const config = new DocumentBuilder()
-    .setTitle('New Template example')
-    .setDescription('The New Template API description')
+    .setTitle('Template example')
+    .setDescription('The Template API description')
     .setVersion('1.0')
     .build();
 

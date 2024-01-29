@@ -22,11 +22,11 @@ export class GreetingController {
    * @param _createGreeting
    */
   constructor(
-    @Inject('GetHelloInterface')
+    @Inject('GetHello')
     private readonly _getHello: GetHelloInterface,
-    @Inject('GetHelloForInterface')
+    @Inject('GetHelloFor')
     private readonly _getHelloFor: GetHelloForInterface,
-    @Inject('CreateGreetingInterface')
+    @Inject('CreateGreeting')
     private readonly _createGreeting: CreateGreetingInterface,
   ) {}
 
@@ -56,8 +56,8 @@ export class GreetingController {
    */
   @Post('/')
   createGreeting(
-    @Body() req: GreetingRequestDto,
+    @Body() body: GreetingRequestDto,
   ): Promise<GreetingResponseDto> {
-    return this._createGreeting.handle(req);
+    return this._createGreeting.handle(body);
   }
 }

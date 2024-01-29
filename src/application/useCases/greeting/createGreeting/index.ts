@@ -1,10 +1,11 @@
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { GreetingResponseDto } from '@domain/greeting/dto/greetingResponse.dto';
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { CreateGreetingInterface } from '@domain/interfaces/application/useCases/greeting/createGreetingInterface';
 import { GreetingRequestDto } from '@domain/greeting/dto/greetingRequest.dto';
+import { GreetingRepositoryInterface } from '@domain/interfaces/infrastructure/persistence/repository/greeting/greetingRepositoryInterface';
 
 /**
  * @export CreateGreeting
@@ -18,7 +19,11 @@ export class CreateGreeting implements CreateGreetingInterface {
    * @param {Mapper} _mapper
    * @memberof CreateGreeting
    */
-  constructor(@InjectMapper() private _mapper: Mapper) {}
+  constructor(
+    @InjectMapper() private readonly _mapper: Mapper,
+    @Inject('GreetingRepository')
+    private readonly _greetingRepository: GreetingRepositoryInterface,
+  ) {}
 
   /**
    * @return {string}
@@ -26,9 +31,14 @@ export class CreateGreeting implements CreateGreetingInterface {
    * @method handle
    * @description This method returns a string.
    */
-  async handle(request: GreetingRequestDto): Promise<GreetingResponseDto> {
+  async handle(payload: GreetingRequestDto): Promise<GreetingResponseDto> {
     try {
-      const data = this._mapper.map(request, GreetingRequestDto, Greeting);
+      const newPayload = this._mapper.map(
+        payload,
+        GreetingRequestDto,
+        Greeting,
+      );
+      const data = await this._greetingRepository.create(newPayload);
 
       const response = this._mapper.map(data, Greeting, GreetingResponseDto);
 

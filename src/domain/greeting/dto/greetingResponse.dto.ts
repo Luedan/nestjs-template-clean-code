@@ -5,8 +5,20 @@ import { AutoMap } from '@automapper/classes';
  */
 export class GreetingResponseDto {
   /**
+   * The identifier of the greeting.
+   */
+  @AutoMap()
+  id: number;
+
+  /**
    * The greeting message.
    */
   @AutoMap()
   greeting: string;
+
+  /**
+   * The state of the greeting.
+   */
+  @AutoMap()
+  state: number;
 }

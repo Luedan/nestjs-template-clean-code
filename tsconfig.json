@@ -39,9 +39,5 @@
     "./src/**/*",
     "./test/**/*",
     "./jest.config.js"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
   ]
 }

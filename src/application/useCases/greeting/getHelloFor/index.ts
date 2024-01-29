@@ -27,7 +27,7 @@ export class GetHelloFor implements GetHelloForInterface {
    */
   async handle(name: string): Promise<GreetingResponseDto> {
     try {
-      const data = { greeting: `Hello World with ${name}!` };
+      const data = { greeting: `Hello World with ${name}!`, id: 1, state: 1 };
 
       const response = this._mapper.map(data, Greeting, GreetingResponseDto);
 

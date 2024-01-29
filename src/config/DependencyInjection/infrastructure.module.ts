@@ -1,3 +1,4 @@
+import { InfrastructureLayerDependencies } from '@infrastructure/dependencies';
 import { Module } from '@nestjs/common';
 
 /**
@@ -5,7 +6,8 @@ import { Module } from '@nestjs/common';
  * DON'T MODIFY THIS FILE IF IT'S NOT NECESSARY
  */
 @Module({
-  providers: [],
-  exports: [],
+  imports: [],
+  providers: [...InfrastructureLayerDependencies],
+  exports: [...InfrastructureLayerDependencies],
 })
 export class InfrastructureDependencyInjection {}

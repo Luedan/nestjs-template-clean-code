@@ -8,15 +8,15 @@ import { CreateGreeting } from './createGreeting';
  */
 export const GreetingProviders: Provider[] = [
   {
-    provide: 'GetHelloInterface',
+    provide: 'GetHello',
     useClass: GetHello,
   },
   {
-    provide: 'GetHelloForInterface',
+    provide: 'GetHelloFor',
     useClass: GetHelloFor,
   },
   {
-    provide: 'CreateGreetingInterface',
+    provide: 'CreateGreeting',
     useClass: CreateGreeting,
   },
 ];

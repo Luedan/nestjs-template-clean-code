@@ -27,7 +27,7 @@ export class GetHello implements GetHelloInterface {
    */
   async handle(): Promise<GreetingResponseDto> {
     try {
-      const data = { greeting: 'Hello World!' };
+      const data = { greeting: 'Hello World!', state: 1, id: 1 };
       // test con mapper normal
       const response = this._mapper.map(data, Greeting, GreetingResponseDto);
 

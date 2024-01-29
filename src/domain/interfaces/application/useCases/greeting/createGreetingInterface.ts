@@ -10,5 +10,5 @@ export interface CreateGreetingInterface {
    * @param request The greeting request data.
    * @returns {Promise<GreetingResponseDto>} A promise that resolves to the greeting response data.
    */
-  handle(request: GreetingRequestDto): Promise<GreetingResponseDto>;
+  handle(payload: GreetingRequestDto): Promise<GreetingResponseDto>;
 }
