@@ -41,14 +41,18 @@ export class Greeting {
    * The date the greeting was created.
    */
   @AutoMap()
-  @CreateDateColumn({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({
+    name: 'created_at',
+  })
   createdAt: Date;
 
   /**
    * The date the greeting was updated.
    */
   @AutoMap()
-  @UpdateDateColumn({ name: 'updated_at', default: () => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({
+    name: 'updated_at',
+  })
   updatedAt: Date;
 
   /**

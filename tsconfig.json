@@ -37,7 +37,7 @@
   },
   "include": [
     "./src/**/*",
-    "./test/**/*",
+    "__test__/**/*",
     "./jest.config.js"
   ]
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 function makeModuleNameMapper(srcPath, tsconfigPath) {
   // Get paths from tsconfig
   const { paths } = require(tsconfigPath).compilerOptions;
@@ -16,10 +17,21 @@ function makeModuleNameMapper(srcPath, tsconfigPath) {
 const TS_CONFIG_PATH = './tsconfig.json';
 const SRC_PATH = '<rootDir>';
 
-module.exports = {
+/** @type {import('jest').Config} */
+config = {
   roots: [SRC_PATH],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
   moduleNameMapper: makeModuleNameMapper(SRC_PATH, TS_CONFIG_PATH),
+  coverageThreshold: {
+    global: {
+      branches: 75,
+      functions: 75,
+      lines: 75,
+      statements: -10,
+    },
+  },
 };
+
+module.exports = config;
