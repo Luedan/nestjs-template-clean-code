@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { GreetingResponseDto } from '@domain/greeting/dto/greetingResponse.dto';
-import { GetHelloForInterface } from '@domain/interfaces/application/useCases/greeting/getHelloForInterface';
 import { GetHelloInterface } from '@domain/interfaces/application/useCases/greeting/getHelloInterface';
 import { CreateGreetingInterface } from '@domain/interfaces/application/useCases/greeting/createGreetingInterface';
 import { GreetingRequestDto } from '@domain/greeting/dto/greetingRequest.dto';
+import { GetHelloForInterface } from '@domain/interfaces/application/useCases/greeting/getHelloForInterface';
 
 /**
  * @class

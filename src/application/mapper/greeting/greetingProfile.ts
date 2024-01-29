@@ -21,7 +21,6 @@ export class GreetingProfile extends AutomapperProfile {
   override get profile() {
     return (mapper: Mapper) => {
       createMap(mapper, Greeting, GreetingResponseDto);
-      createMap(mapper, GreetingResponseDto, Greeting);
       createMap(mapper, GreetingRequestDto, Greeting);
     };
   }
