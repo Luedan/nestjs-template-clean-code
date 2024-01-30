@@ -41,6 +41,8 @@ export class DeleteGreeting implements deleteGreetingInterface {
       const response = this._mapper.map(exist, Greeting, GreetingResponseDto);
 
       return response;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
 }

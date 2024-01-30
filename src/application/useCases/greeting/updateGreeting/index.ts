@@ -56,6 +56,8 @@ export class UpdateGreeting implements UpdateGreetingInterface {
       );
 
       return response;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
 }

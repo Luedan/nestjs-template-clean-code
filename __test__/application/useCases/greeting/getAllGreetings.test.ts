@@ -6,6 +6,8 @@ import {
 import { Test } from '@nestjs/testing';
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { GreetingResponseDto } from '@domain/greeting/dto/greetingResponse.dto';
+import { createMock } from '@golevelup/ts-jest';
+import { GreetingRepository } from '@infrastructure/persistence/repository/greeting/greetingRepository';
 
 describe('Get All Greetings use case', () => {
   const expectedGreeting = [FakeGreeting];
@@ -18,9 +20,11 @@ describe('Get All Greetings use case', () => {
     mapArray: jest.fn().mockImplementation(() => expectedGreetingResponse),
   };
 
-  const _greetingRepositoryMock = {
-    findAll: jest.fn().mockImplementation(() => expectedGreeting),
-  };
+  const _greetingRepositoryMock = createMock<GreetingRepository>();
+
+  _greetingRepositoryMock.findAll = jest
+    .fn()
+    .mockImplementation(() => expectedGreeting);
 
   beforeEach(async () => {
     const appRef = await Test.createTestingModule({

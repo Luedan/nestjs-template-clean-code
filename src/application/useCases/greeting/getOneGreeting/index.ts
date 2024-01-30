@@ -38,6 +38,8 @@ export class GetOneGreeting implements GetOneGreetingInterface {
       );
 
       return greeting;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
 }

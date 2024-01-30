@@ -32,6 +32,8 @@ export class GetHelloFor implements GetHelloForInterface {
       const response = this._mapper.map(data, Greeting, GreetingResponseDto);
 
       return response;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
 }

@@ -37,6 +37,8 @@ export class GetAllGreetings implements GetAllGreetingInterface {
       );
 
       return greetings;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
 }
