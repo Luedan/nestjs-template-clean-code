@@ -1,6 +1,6 @@
 import { Provider } from '@nestjs/common';
-import { Context } from './context';
-import { GreetingRepository } from './repository/greeting/greetingRepository';
+import { Context } from './persistence/context';
+import { GreetingRepository } from './persistence/repository/greeting/greetingRepository';
 
 export const InfrastructureLayerDependencies: Provider[] = [
   {

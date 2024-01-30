@@ -3,6 +3,9 @@ import {
   FakeGreeting,
   FakeGreetingDto,
 } from '../../../mocks/data/greeting.dummies';
+import { Test } from '@nestjs/testing';
+import { Greeting } from '@domain/greeting/entity/greeting.entity';
+import { GreetingResponseDto } from '@domain/greeting/dto/greetingResponse.dto';
 
 describe('Get All Greetings use case', () => {
   const expectedGreeting = [FakeGreeting];
@@ -11,16 +14,43 @@ describe('Get All Greetings use case', () => {
 
   let _getAllGreetings: GetAllGreetings;
 
-  let _mapperMock = {
-    map: jest.fn().mockImplementation((payload) => payload),
+  const _mapperMock = {
+    mapArray: jest.fn().mockImplementation(() => expectedGreetingResponse),
   };
 
-  let _greetingRepositoryMock = {
-    getAll: jest.fn().mockImplementation(() => [
-      {
-        id: 1,
-        message: 'Hello World',
-      },
-    ]),
+  const _greetingRepositoryMock = {
+    findAll: jest.fn().mockImplementation(() => expectedGreeting),
   };
+
+  beforeEach(async () => {
+    const appRef = await Test.createTestingModule({
+      providers: [
+        GetAllGreetings,
+        {
+          provide: 'automapper:nestjs:default',
+          useValue: _mapperMock,
+        },
+        {
+          provide: 'GreetingRepository',
+          useValue: _greetingRepositoryMock,
+        },
+      ],
+    }).compile();
+
+    _getAllGreetings = appRef.get<GetAllGreetings>(GetAllGreetings);
+  });
+
+  it('should return a GreetingResponseDto', async () => {
+    const result = await _getAllGreetings.handle();
+
+    expect(result).toEqual(expectedGreetingResponse);
+
+    expect(_greetingRepositoryMock.findAll).toHaveBeenCalled();
+
+    expect(_mapperMock.mapArray).toHaveBeenCalledWith(
+      expectedGreeting,
+      Greeting,
+      GreetingResponseDto,
+    );
+  });
 });

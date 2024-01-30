@@ -5,7 +5,7 @@ import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { CreateGreeting } from '@application/useCases/greeting/createGreeting';
 import { FakeGreetingDto } from '../../../mocks/data/greeting.dummies';
 import { createMock } from '@golevelup/ts-jest';
-import { GreetingRepository } from '@infrastructure/repository/greeting/greetingRepository';
+import { GreetingRepository } from '@infrastructure/persistence/repository/greeting/greetingRepository';
 
 describe('CreateGreeting', () => {
   let createGreeting: CreateGreeting;

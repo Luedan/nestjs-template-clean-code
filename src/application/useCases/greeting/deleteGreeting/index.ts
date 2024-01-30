@@ -3,7 +3,7 @@ import { InjectMapper } from '@automapper/nestjs';
 import { GreetingResponseDto } from '@domain/greeting/dto/greetingResponse.dto';
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { deleteGreetingInterface } from '@domain/interfaces/application/useCases/greeting/deleteGreetingInterface';
-import { GreetingRepository } from '@infrastructure/repository/greeting/greetingRepository';
+import { GreetingRepositoryInterface } from '@domain/interfaces/infrastructure/persistence/repository/greeting/greetingRepositoryInterface';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 /**
@@ -19,7 +19,7 @@ export class DeleteGreeting implements deleteGreetingInterface {
   constructor(
     @InjectMapper() private readonly _mapper: Mapper,
     @Inject('GreetingRepository')
-    private readonly _greetingRepository: GreetingRepository,
+    private readonly _greetingRepository: GreetingRepositoryInterface,
   ) {}
 
   /**

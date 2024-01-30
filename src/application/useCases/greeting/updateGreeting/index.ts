@@ -4,7 +4,7 @@ import { GreetingRequestDto } from '@domain/greeting/dto/greetingRequest.dto';
 import { GreetingResponseDto } from '@domain/greeting/dto/greetingResponse.dto';
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { UpdateGreetingInterface } from '@domain/interfaces/application/useCases/greeting/updateGreetingInterface';
-import { GreetingRepository } from '@infrastructure/repository/greeting/greetingRepository';
+import { GreetingRepositoryInterface } from '@domain/interfaces/infrastructure/persistence/repository/greeting/greetingRepositoryInterface';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 /**
@@ -20,7 +20,7 @@ export class UpdateGreeting implements UpdateGreetingInterface {
   constructor(
     @InjectMapper() private readonly _mapper: Mapper,
     @Inject('GreetingRepository')
-    private readonly _greetingRepository: GreetingRepository,
+    private readonly _greetingRepository: GreetingRepositoryInterface,
   ) {}
 
   /**
