@@ -8,6 +8,7 @@ Proyecto basado en DDD(Codigo limpio)
 
 ## Arbol del modelo
 
+```
 .
 ├── Dockerfile
 ├── estructura_de_carpetas.txt
@@ -64,6 +65,7 @@ Proyecto basado en DDD(Codigo limpio)
 ├── tsconfig.build.json
 ├── tsconfig.json
 └── yarn.lock
+```
 
 ## Installation
 
