@@ -1,5 +1,10 @@
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
-import { FindManyOptions } from 'typeorm';
+import {
+  DeleteCriteriaType,
+  FindAllCriteriaType,
+  FindOneCriteriaType,
+  UpdateCriteriaType,
+} from '../types';
 
 /**
  * Represents the interface for a greeting repository.
@@ -10,14 +15,14 @@ export interface GreetingRepositoryInterface {
    * Retrieves all entities.
    * @returns A promise that resolves to an array of entities.
    */
-  findAll(options?: FindManyOptions<Greeting>): Promise<Greeting[]>;
+  findAll(options?: FindAllCriteriaType<Greeting>): Promise<Greeting[]>;
 
   /**
    * Retrieves a single entity by its ID.
    * @param id - The ID of the entity.
    * @returns A promise that resolves to the found entity.
    */
-  findOne(id: number): Promise<Greeting>;
+  findOne(criteria: FindOneCriteriaType<Greeting>): Promise<Greeting>;
 
   /**
    * Creates a new entity.
@@ -32,12 +37,15 @@ export interface GreetingRepositoryInterface {
    * @param entity - The updated entity.
    * @returns A promise that resolves to the updated entity.
    */
-  update(id: number, entity: Greeting): Promise<Greeting>;
+  update(
+    criteria: UpdateCriteriaType<Greeting>,
+    entity: Greeting,
+  ): Promise<Greeting>;
 
   /**
    * Deletes an entity by its ID.
    * @param id - The ID of the entity to delete.
    * @returns A promise that resolves to the deleted entity.
    */
-  delete(id: number): Promise<Greeting>;
+  delete(criteria: DeleteCriteriaType<Greeting>): Promise<Greeting>;
 }

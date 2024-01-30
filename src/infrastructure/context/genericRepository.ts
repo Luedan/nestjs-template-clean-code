@@ -77,7 +77,6 @@ export class GenericRepository<E extends ObjectLiteral>
     const response = await this._repository.update(criteria, {
       ...partialEntity,
     });
-
     return response;
   }
 

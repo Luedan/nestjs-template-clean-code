@@ -1,12 +1,10 @@
+import { InsertResult, UpdateResult, ObjectLiteral } from 'typeorm';
 import {
-  FindManyOptions,
-  InsertResult,
-  UpdateResult,
-  FindOneOptions,
-  FindOptionsWhere,
-  ObjectLiteral,
-  ObjectId,
-} from 'typeorm';
+  DeleteCriteriaType,
+  FindAllCriteriaType,
+  FindOneCriteriaType,
+  UpdateCriteriaType,
+} from '../repository/types';
 
 /**
  * Represents an abstract repository for data persistence.
@@ -18,14 +16,14 @@ export abstract class AbstractRepository<E extends ObjectLiteral> {
    * @param options - The find options.
    * @returns A promise that resolves to an array of entities.
    */
-  abstract find(options?: FindManyOptions<E>): Promise<E[]>;
+  abstract find(options?: FindAllCriteriaType<E>): Promise<E[]>;
 
   /**
    * Finds a single entity based on the provided options.
    * @param options - The find options.
    * @returns A promise that resolves to the found entity or null if not found.
    */
-  abstract findOne(options: FindOneOptions<E>): Promise<E | null>;
+  abstract findOne(options: FindOneCriteriaType<E>): Promise<E | null>;
 
   /**
    * Creates a new entity.
@@ -41,16 +39,7 @@ export abstract class AbstractRepository<E extends ObjectLiteral> {
    * @returns A promise that resolves to the update result.
    */
   abstract update(
-    criteria:
-      | string
-      | number
-      | Date
-      | string[]
-      | number[]
-      | Date[]
-      | FindOptionsWhere<E>
-      | ObjectId
-      | ObjectId[],
+    criteria: UpdateCriteriaType<E>,
     partialEntity: E,
   ): Promise<UpdateResult>;
 
@@ -59,16 +48,5 @@ export abstract class AbstractRepository<E extends ObjectLiteral> {
    * @param criteria - The criteria to match entities.
    * @returns A promise that resolves to the update result.
    */
-  abstract delete(
-    criteria:
-      | string
-      | number
-      | Date
-      | string[]
-      | number[]
-      | Date[]
-      | FindOptionsWhere<E>
-      | ObjectId
-      | ObjectId[],
-  ): Promise<UpdateResult>;
+  abstract delete(criteria: DeleteCriteriaType<E>): Promise<UpdateResult>;
 }

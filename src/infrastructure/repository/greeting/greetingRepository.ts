@@ -1,8 +1,13 @@
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { AbstractContext } from '@domain/interfaces/infrastructure/persistence/context/abstractContext';
 import { GreetingRepositoryInterface } from '@domain/interfaces/infrastructure/persistence/repository/greeting/greetingRepositoryInterface';
+import {
+  DeleteCriteriaType,
+  FindAllCriteriaType,
+  FindOneCriteriaType,
+  UpdateCriteriaType,
+} from '@domain/interfaces/infrastructure/persistence/repository/types';
 import { HttpException, Inject, Injectable } from '@nestjs/common';
-import { FindManyOptions } from 'typeorm';
 
 /**
  * Repository class for managing greetings.
@@ -20,7 +25,7 @@ export class GreetingRepository implements GreetingRepositoryInterface {
    * @returns A promise that resolves to an array of greetings.
    * @throws {HttpException} If an error occurs while retrieving the greetings.
    */
-  async findAll(options?: FindManyOptions<Greeting>): Promise<Greeting[]> {
+  async findAll(options?: FindAllCriteriaType<Greeting>): Promise<Greeting[]> {
     try {
       const response = await this._context.greeting.find(options);
       return response;
@@ -38,9 +43,9 @@ export class GreetingRepository implements GreetingRepositoryInterface {
    * @returns A promise that resolves to the retrieved greeting.
    * @throws {HttpException} If an error occurs while retrieving the greeting.
    */
-  async findOne(id: number): Promise<Greeting> {
+  async findOne(criteria: FindOneCriteriaType<Greeting>): Promise<Greeting> {
     try {
-      const response = await this._context.greeting.findOne({ where: { id } });
+      const response = await this._context.greeting.findOne(criteria);
       return response;
     } catch (error) {
       throw new HttpException(
@@ -59,7 +64,7 @@ export class GreetingRepository implements GreetingRepositoryInterface {
   async create(entity: Greeting): Promise<Greeting> {
     try {
       const response = await this._context.greeting.create(entity);
-      return { ...entity, ...response };
+      return { ...entity, ...response.raw[0] };
     } catch (error) {
       throw new HttpException(
         `Error creando un greeting: ${error.message}`,
@@ -75,19 +80,13 @@ export class GreetingRepository implements GreetingRepositoryInterface {
    * @returns A promise that resolves to the updated greeting.
    * @throws {HttpException} If an error occurs while updating the greeting.
    */
-  async update(id: number, entity: Greeting): Promise<Greeting> {
+  async update(
+    criteria: UpdateCriteriaType<Greeting>,
+    entity: Greeting,
+  ): Promise<Greeting> {
     try {
-      const exist = await this.findOne(id);
-
-      if (!exist) {
-        throw new HttpException(
-          `No se encontró un greeting con el ID ${id}`,
-          404,
-        );
-      }
-
-      await this._context.greeting.update(id, entity);
-      return { ...exist, ...entity };
+      const response = await this._context.greeting.update(criteria, entity);
+      return { ...entity, ...response.raw[0], ...response.generatedMaps[0] };
     } catch (error) {
       throw new HttpException(
         `Error actualizando greeting: ${error.message}`,
@@ -102,19 +101,10 @@ export class GreetingRepository implements GreetingRepositoryInterface {
    * @returns A promise that resolves to the deleted greeting.
    * @throws {HttpException} If an error occurs while deleting the greeting.
    */
-  async delete(id: number): Promise<Greeting> {
+  async delete(criteria: DeleteCriteriaType<Greeting>): Promise<Greeting> {
     try {
-      const entity = await this._context.greeting.findOne({ where: { id } });
-
-      if (!entity) {
-        throw new HttpException(
-          `No se encontró un greeting con el ID ${id}`,
-          404,
-        );
-      }
-
-      await this._context.greeting.delete(id);
-      return entity;
+      const response = await this._context.greeting.delete(criteria);
+      return { ...response?.raw[0], ...response?.generatedMaps[0] };
     } catch (error) {
       throw new HttpException(
         `Error eliminando greeting: ${error.message}`,

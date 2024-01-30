@@ -8,24 +8,12 @@
 ├── src
 │   ├── application
 │   │   ├── mapper
-│   │   │   ├── genericConverter.ts
-│   │   │   ├── greeting
-│   │   │   │   └── greetingProfile.ts
-│   │   │   ├── index.ts
-│   │   │   └── mapperContext.ts
+│   │   │   ├── ... (mapper files)
 │   │   └── useCases
 │   │       ├── dependencies.ts
-│   │       └── greeting
-│   │           ├── createGreeting
-│   │           │   └── index.ts
-│   │           ├── getHello
-│   │           │   └── index.ts
-│   │           ├── getHelloFor
-│   │           │   └── index.ts
-│   │           └── greetingDependencies.ts
+│   │       └── ... (useCases folders and files)
 │   ├── config
 │   │   ├── db
-│   │   │   └── index.ts
 │   │   └── DependencyInjection
 │   │       ├── application.module.ts
 │   │       ├── app.module.ts
@@ -34,58 +22,35 @@
 │   │       └── presentation.module.ts
 │   ├── domain
 │   │   ├── entities.ts
-│   │   ├── greeting
-│   │   │   ├── dto
-│   │   │   │   ├── greetingRequest.dto.ts
-│   │   │   │   └── greetingResponse.dto.ts
-│   │   │   └── entity
-│   │   │       └── greeting.entity.ts
+│   │   ├── ... (domain folders and files)
 │   │   └── interfaces
 │   │       ├── application
-│   │       │   ├── mapper
-│   │       │   │   ├── abstractConverter.ts
-│   │       │   │   └── abstractMapper.ts
-│   │       │   └── useCases
-│   │       │       └── greeting
-│   │       │           ├── createGreetingInterface.ts
-│   │       │           ├── getHelloForInterface.ts
-│   │       │           └── getHelloInterface.ts
+│   │       │   ├── ... (application interfaces)
 │   │       ├── infrastructure
-│   │       │   └── persistence
-│   │       │       ├── context
-│   │       │       │   ├── abstractContext.ts
-│   │       │       │   └── abstractRepository.ts
-│   │       │       └── repository
-│   │       │           └── greeting
-│   │       │               └── greetingRepositoryInterface.ts
+│   │       │   └── ... (infrastructure interfaces)
 │   │       └── package
+│   │           └── ... (package interfaces)
 │   ├── infrastructure
 │   │   ├── context
 │   │   │   ├── genericRepository.ts
 │   │   │   └── index.ts
 │   │   ├── dependencies.ts
 │   │   └── repository
-│   │       └── greeting
-│   │           └── greetingRepository.ts
 │   ├── package
 │   │   └── dependencies.ts
 │   └── presentation
 │       ├── controllers
 │       │   ├── controllers.module.ts
-│       │   └── greeting.controller.ts
 │       └── main.ts
 ├── __test__
 │   ├── application
-│   │   ├── mapper
-│   │   └── useCases
-│   │       └── greeting
-│   │           ├── createGreeting.test.ts
-│   │           ├── getHelloFor.test.ts
-│   │           └── getHello.test.ts
+│   │   ├── ... (application test files)
+│   ├── infrastructure
+│   │   ├── ... (infrastructure test files)
+│   ├── package
+│   │   └── ... (package test files)
 │   ├── jest-e2e.json
 │   └── mocks
-│       └── data
-│           └── greeting.dummies.ts
 ├── tsconfig.build.json
 ├── tsconfig.json
 └── yarn.lock
