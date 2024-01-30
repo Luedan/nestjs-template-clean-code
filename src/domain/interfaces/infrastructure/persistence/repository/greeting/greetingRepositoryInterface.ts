@@ -1,18 +1,16 @@
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
+import { FindManyOptions } from 'typeorm';
 
 /**
  * Represents the interface for a greeting repository.
  * @template Greeting The type of entity.
- */
-/**
- * Represents the interface for a greeting repository.
  */
 export interface GreetingRepositoryInterface {
   /**
    * Retrieves all entities.
    * @returns A promise that resolves to an array of entities.
    */
-  findAll(): Promise<Greeting[]>;
+  findAll(options?: FindManyOptions<Greeting>): Promise<Greeting[]>;
 
   /**
    * Retrieves a single entity by its ID.

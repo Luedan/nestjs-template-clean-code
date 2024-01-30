@@ -4,6 +4,8 @@ import { GreetingResponseDto } from '@domain/greeting/dto/greetingResponse.dto';
 import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { CreateGreeting } from '@application/useCases/greeting/createGreeting';
 import { FakeGreetingDto } from '../../../mocks/data/greeting.dummies';
+import { createMock } from '@golevelup/ts-jest';
+import { GreetingRepository } from '@infrastructure/repository/greeting/greetingRepository';
 
 describe('CreateGreeting', () => {
   let createGreeting: CreateGreeting;
@@ -12,9 +14,11 @@ describe('CreateGreeting', () => {
     map: jest.fn().mockImplementation((payload) => payload),
   };
 
-  const mockGreetingRepository = {
-    create: jest.fn().mockImplementation((payload) => payload),
-  };
+  const mockGreetingRepository = createMock<GreetingRepository>();
+
+  mockGreetingRepository.create = jest
+    .fn()
+    .mockImplementation((payload) => payload);
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -46,6 +50,7 @@ describe('CreateGreeting', () => {
     const result = await createGreeting.handle(greetingRequestDto);
 
     expect(result).toEqual(expectedResponse);
+
     expect(mockMapper.map).toHaveBeenCalledWith(
       greetingRequestDto,
       GreetingRequestDto,

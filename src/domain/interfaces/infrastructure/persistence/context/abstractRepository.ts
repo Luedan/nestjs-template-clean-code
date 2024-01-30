@@ -5,6 +5,7 @@ import {
   FindOneOptions,
   FindOptionsWhere,
   ObjectLiteral,
+  ObjectId,
 } from 'typeorm';
 
 /**
@@ -43,11 +44,13 @@ export abstract class AbstractRepository<E extends ObjectLiteral> {
     criteria:
       | string
       | number
-      | string[]
       | Date
+      | string[]
       | number[]
       | Date[]
-      | FindOptionsWhere<E>,
+      | FindOptionsWhere<E>
+      | ObjectId
+      | ObjectId[],
     partialEntity: E,
   ): Promise<UpdateResult>;
 
@@ -60,10 +63,12 @@ export abstract class AbstractRepository<E extends ObjectLiteral> {
     criteria:
       | string
       | number
-      | string[]
       | Date
+      | string[]
       | number[]
       | Date[]
-      | FindOptionsWhere<E>,
+      | FindOptionsWhere<E>
+      | ObjectId
+      | ObjectId[],
   ): Promise<UpdateResult>;
 }

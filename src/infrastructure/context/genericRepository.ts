@@ -8,6 +8,7 @@ import {
   Repository,
   FindOneOptions,
   FindOptionsWhere,
+  ObjectId,
 } from 'typeorm';
 
 export class GenericRepository<E extends ObjectLiteral>
@@ -31,48 +32,72 @@ export class GenericRepository<E extends ObjectLiteral>
   /**
    * @method find Get all document objects.
    */
-  public find(options?: FindManyOptions<E>): Promise<E[]> {
-    return this._repository.find(options);
+  public async find(options?: FindManyOptions<E>): Promise<E[]> {
+    const response = await this._repository.find(options);
+
+    return response;
   }
 
   /**
    * @method findOne Get one document object.
    */
-  public findOne(options: FindOneOptions<E>): Promise<E | null> {
-    return this._repository.findOne(options);
+  public async findOne(options: FindOneOptions<E>): Promise<E | null> {
+    const response = await this._repository.findOne(options);
+
+    return response;
   }
 
   /**
    * @method create insert a document object.
    */
-  public create(entity: E): Promise<InsertResult> {
-    return this._repository.insert({
+  public async create(entity: E): Promise<InsertResult> {
+    const response = await this._repository.insert({
       ...entity,
     });
+
+    return response;
   }
 
   /**
    * @method update update a document object.
    */
-  public update(criteria: any, partialEntity: E): Promise<UpdateResult> {
-    return this._repository.update(criteria, {
+  public async update(
+    criteria:
+      | string
+      | number
+      | Date
+      | string[]
+      | number[]
+      | Date[]
+      | FindOptionsWhere<E>
+      | ObjectId
+      | ObjectId[],
+    partialEntity: E,
+  ): Promise<UpdateResult> {
+    const response = await this._repository.update(criteria, {
       ...partialEntity,
     });
+
+    return response;
   }
 
   /**
    * @method delete delete a document object.
    */
-  public delete(
+  public async delete(
     criteria:
       | string
       | number
-      | string[]
       | Date
+      | string[]
       | number[]
       | Date[]
-      | FindOptionsWhere<E>,
+      | FindOptionsWhere<E>
+      | ObjectId
+      | ObjectId[],
   ): Promise<UpdateResult> {
-    return this._repository.softDelete(criteria);
+    const response = await this._repository.softDelete(criteria);
+
+    return response;
   }
 }

@@ -2,6 +2,7 @@ import { Greeting } from '@domain/greeting/entity/greeting.entity';
 import { AbstractContext } from '@domain/interfaces/infrastructure/persistence/context/abstractContext';
 import { GreetingRepositoryInterface } from '@domain/interfaces/infrastructure/persistence/repository/greeting/greetingRepositoryInterface';
 import { HttpException, Inject, Injectable } from '@nestjs/common';
+import { FindManyOptions } from 'typeorm';
 
 /**
  * Repository class for managing greetings.
@@ -19,9 +20,9 @@ export class GreetingRepository implements GreetingRepositoryInterface {
    * @returns A promise that resolves to an array of greetings.
    * @throws {HttpException} If an error occurs while retrieving the greetings.
    */
-  async findAll(): Promise<Greeting[]> {
+  async findAll(options?: FindManyOptions<Greeting>): Promise<Greeting[]> {
     try {
-      const response = await this._context.greeting.find();
+      const response = await this._context.greeting.find(options);
       return response;
     } catch (error) {
       throw new HttpException(
@@ -58,7 +59,7 @@ export class GreetingRepository implements GreetingRepositoryInterface {
   async create(entity: Greeting): Promise<Greeting> {
     try {
       const response = await this._context.greeting.create(entity);
-      return { ...response?.generatedMaps[0], ...entity };
+      return { ...entity, ...response };
     } catch (error) {
       throw new HttpException(
         `Error creando un greeting: ${error.message}`,
